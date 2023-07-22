@@ -1,0 +1,13 @@
+.MuiTablePagination-toolbar {
+  align-items: baseline !important;
+}
+/* .MuiCheckbox-colorPrimary {
+  color: #ffb81d !important;
+} */
+.Mui-checked {
+  color: #ffb81d !important;
+}
+
+.hover :hover {
+  background-color: #ffffff;
+}
