@@ -26,6 +26,17 @@ export const StyledLabel = styled(InputLabel)`
 export const StyledInput = styled(TextField)`
   background-color: #f0f0f0;
   border: none;
+
+  /* Hide increment and decrement buttons */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 export const StyledButton = styled(Button)`

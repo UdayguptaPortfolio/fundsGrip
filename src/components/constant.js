@@ -105,3 +105,93 @@ export const dummyVersion = [
     value: 2
   }
 ];
+
+export const addNewEmployeeForm = [
+  {
+    label: "Email*",
+    name: "email",
+    type: "string",
+    required: true
+  },
+  {
+    label: "First Name*",
+    name: "first_name",
+    type: "string",
+    required: true
+  },
+  {
+    label: "Last Name*",
+    name: "last_name",
+    type: "string",
+    required: true
+  },
+  {
+    label: "Phone No*",
+    name: "phone_number",
+    type: "number",
+    required: true
+  },
+  {
+    label: "PAN CARD",
+    name: "pan_number",
+    type: "number",
+    required: false
+  },
+  {
+    label: "UIDAI",
+    name: "uidai_number",
+    type: "number",
+    required: false
+  }
+];
+
+export const addNewCustomerForm = [
+  {
+    label: "Email*",
+    name: "email",
+    type: "string",
+    required: true
+  },
+  {
+    label: "First Name*",
+    name: "first_name",
+    type: "string",
+    required: true
+  },
+  {
+    label: "Last Name*",
+    name: "last_name",
+    type: "string",
+    required: true
+  },
+  {
+    label: "Phone No*",
+    name: "phone_number",
+    type: "number",
+    required: true
+  },
+  {
+    label: "PAN CARD",
+    name: "pan_number",
+    type: "number",
+    required: false
+  },
+  {
+    label: "City",
+    name: "city",
+    type: "string",
+    required: false
+  },
+  {
+    label: "Profession",
+    name: "profession",
+    type: "string",
+    required: false
+  },
+  {
+    label: "Query",
+    name: "query",
+    type: "string",
+    required: false
+  }
+];
