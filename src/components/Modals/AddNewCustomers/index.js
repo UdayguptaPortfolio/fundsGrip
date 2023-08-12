@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CustomDropDown from "../../Dropdown/CustomDropDown";
 import { useGetParentVersionsQuery } from "../../../redux/slices/parentVersioning/parentVersioningApiSlice";
 import { getParentVersioningAction } from "../../../redux/slices";
+import { TextFieldStyledInput } from "../EditModal/Styled.js";
 
 const AddNewAdmin = ({ handleCloseModal, handleChange, handleSubmit, inviteAdminData }) => {
   const dispatch = useDispatch();
@@ -49,16 +50,29 @@ const AddNewAdmin = ({ handleCloseModal, handleChange, handleSubmit, inviteAdmin
             return (
               <DefaultFormGroup key={index}>
                 <StyledLabel htmlFor="name">{label}</StyledLabel>
-                <StyledInput
-                  sx={{ backgroundColor: "#f0f0f0" }}
-                  name={name}
-                  id="outlined-basic"
-                  variant="outlined"
-                  focused={false}
-                  onChange={handleChange}
-                  type={type}
-                  required={required}
-                />
+                {name !== "query" ? (
+                  <StyledInput
+                    sx={{ backgroundColor: "#f0f0f0" }}
+                    name={name}
+                    id="outlined-basic"
+                    variant="outlined"
+                    focused={false}
+                    onChange={handleChange}
+                    type={type}
+                    required={required}
+                  />
+                ) : (
+                  <TextFieldStyledInput
+                    sx={{ backgroundColor: "#f0f0f0" }}
+                    name={name}
+                    variant="outlined"
+                    focused={false}
+                    id="outlined-multiline-static"
+                    multiline
+                    rows={4}
+                    onChange={handleChange}
+                  />
+                )}
               </DefaultFormGroup>
             );
           })}

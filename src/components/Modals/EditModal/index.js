@@ -5,6 +5,7 @@ import {
   StyledTitle,
   StyledLabel,
   StyledInput,
+  TextFieldStyledInput,
   StyledButton,
   EditModalIconButton,
   StyledTypography,
@@ -27,9 +28,10 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
   const selectedPatronData = selectedValue;
   const selectedPatronId = selectedPatronData[0]?.id;
   const [editField, setEditField] = useState({
-    first_name: selectedPatronData[0]?.attributes?.name?.split(" ")[0],
-    last_name: selectedPatronData[0]?.attributes?.name?.split(" ")[1],
-    phone_number: selectedPatronData[0]?.attributes?.phone_number || ""
+    first_name: selectedPatronData[0]?.name?.split(" ")[0],
+    last_name: selectedPatronData[0]?.name?.split(" ")[1],
+    phone_number: selectedPatronData[0]?.phone_number || "",
+    query: selectedPatronData[0]?.query || ""
   });
   const [confirmationModal, setConfirmationModal] = useState({
     delete: false,
@@ -39,13 +41,13 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
   const [updatePatrons, { data: updateRes }] = useUpdatePatronsMutation();
   const [resendinvitation, { data: resendData, resLoading }] = useResendInvitationMutation();
 
-  useEffect(() => {
-    updateRes?.status === 200 ? toast.success(updateRes?.message) : toast.error(updateRes?.message);
-    deleteRes?.status === 200 ? toast.success(deleteRes?.message) : toast.error(deleteRes?.message);
-    resendData?.status === 200
-      ? toast.success(resendData?.message)
-      : toast.error(resendData?.message);
-  }, [updateRes, deleteRes, resendData]);
+  // useEffect(() => {
+  //   updateRes?.status === 200 ? toast.success(updateRes?.message) : toast.error(updateRes?.message);
+  //   deleteRes?.status === 200 ? toast.success(deleteRes?.message) : toast.error(deleteRes?.message);
+  //   resendData?.status === 200
+  //     ? toast.success(resendData?.message)
+  //     : toast.error(resendData?.message);
+  // }, [updateRes, deleteRes, resendData]);
 
   const handleConfirmationModal = (type) => {
     if (type === "Delete") {
@@ -63,7 +65,7 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
 
   const handleModal = (type) => {
     if (type === "Delete") {
-      deleteSpecificPatron(selectedPatronData[0]?.id);
+      // deleteSpecificPatron(selectedPatronData[0]?.id);
       handleCloseModal("Edit");
       toast.success("Admin user deleted successfully.");
       setConfirmationModal((prevState) => ({
@@ -78,7 +80,7 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
           ...editField
         }
       };
-      updatePatrons({ payload, id });
+      // updatePatrons({ payload, id });
       handleCloseModal("Edit");
       setConfirmationModal((prevState) => ({
         ...prevState,
@@ -101,12 +103,6 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
     }));
   };
 
-  const handleResendLink = (type) => {
-    let payload = {
-      id: selectedPatronId
-    };
-    resendinvitation(payload);
-  };
   return (
     <>
       <LoadingBackdrop open={resLoading} />
@@ -119,29 +115,15 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
         {editField?.first_name + " " + editField?.last_name}
       </StyledTitle>
 
-      <StyleGrid>
-        {editManageButtons?.map((item) => {
-          return (
-            <LinkButton key={item?.ref} variant="text" href="#">
-              {item?.name}
-            </LinkButton>
-          );
-        })}
-      </StyleGrid>
-
       <StyledDialogContent sx={{ pl: "50px" }}>
         <DialogContentText>
           <DefaultFormGroup>
-            <StyledLabel htmlFor="name">USERNAME</StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.email}</StyledTypography>
+            <StyledLabel htmlFor="name">EMAIL</StyledLabel>
+            <StyledTypography>{selectedPatronData[0]?.email}</StyledTypography>
           </DefaultFormGroup>
           <DefaultFormGroup>
             <StyledLabel htmlFor="name">USER ID</StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.id}</StyledTypography>
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">ACCESS</StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.email}</StyledTypography>
+            <StyledTypography>{selectedPatronData[0]?.id}</StyledTypography>
           </DefaultFormGroup>
         </DialogContentText>
         <DialogContentText>
@@ -182,42 +164,27 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
             />
           </DefaultFormGroup>
           <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Role*</StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.access_level}</StyledTypography>
+            <StyledLabel htmlFor="name">Query</StyledLabel>
+            <TextFieldStyledInput
+              sx={{ backgroundColor: "#f0f0f0" }}
+              name="query"
+              variant="outlined"
+              focused={false}
+              id="outlined-multiline-static"
+              multiline
+              rows={4}
+              value={editField?.query}
+              onChange={handleChange}
+            />
           </DefaultFormGroup>
-        </DialogContentText>
-        <DialogContentText>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name" value={selectedPatronData[0]?.attributes?.last_sign_in_at}>
-              Last Sign In
-            </StyledLabel>
-            <StyledTypography>
-              {selectedPatronData[0]?.attributes?.last_sign_in_at}
-            </StyledTypography>
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name" value={selectedPatronData[0]?.attributes?.last_sign_in_at}>
-              Sign Ins
-            </StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.sign_in_count}</StyledTypography>
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Created</StyledLabel>
-            <StyledTypography>
-              {selectedPatronData[0]?.attributes?.last_sign_in_at}
-            </StyledTypography>
-          </DefaultFormGroup>
-          <DefaultFormGroup>
+          <DefaultFormGroup
+            sx={{
+              marginTop: "20px"
+            }}>
             <StyledLabel htmlFor="name">Created by</StyledLabel>
-            <StyledTypography>{selectedPatronData[0]?.attributes?.name}</StyledTypography>
+            <StyledTypography>{selectedPatronData[0]?.created_by}</StyledTypography>
           </DefaultFormGroup>
         </DialogContentText>
-
-        <DialogActions>
-          <StyledButton isFourth onClick={() => handleResendLink()}>
-            RESEND VERIFICATION EMAIL
-          </StyledButton>
-        </DialogActions>
       </StyledDialogContent>
 
       <DialogActions sx={{ backgroundColor: "#f0f0f0", justifyContent: "space-around" }}>
