@@ -19,6 +19,11 @@ export const StyledTableCell = styled(TableCell)`
   }
 `;
 
+export const StyledFlexTableCell = styled(StyledTableCell)`
+  display: flex;
+  gap: 10px;
+`;
+
 export const StyledTableHead = styled(TableHead)`
   background-color: #fff;
   height: 80px;

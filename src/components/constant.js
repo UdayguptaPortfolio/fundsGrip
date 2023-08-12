@@ -58,23 +58,23 @@ export const headerMenu = [
     name: "ADMINS"
   },
   {
-    name: "PARENTS"
-  },
-  {
-    name: "REPORTS"
+    name: "EMPLOYEE"
   }
+  // {
+  //   name: "REPORTS"
+  // }
 ];
 
 export const settingsMenu = [
   {
     name: "Profile"
   },
-  {
-    name: "Account"
-  },
-  {
-    name: "Dashboard"
-  },
+  // {
+  //   name: "Account"
+  // },
+  // {
+  //   name: "Dashboard"
+  // },
   {
     name: "Logout"
   }

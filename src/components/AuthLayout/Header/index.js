@@ -37,7 +37,6 @@ function ResponsiveAppBar() {
   const [signOutUser, { data }] = useSignOutUserMutation();
   const navigate = useNavigate();
   const urlPath = window.location.pathname;
-  const version = localStorage.getItem("version");
 
   useEffect(() => {
     if (data) {
@@ -62,7 +61,7 @@ function ResponsiveAppBar() {
 
   const handleHeaderMenu = (name) => {
     if (!urlPath?.includes(name)) {
-      version ? navigate(`/${version}/pages/${name}`) : navigate(`/pages/${name}`);
+      navigate(`/pages/${name}`);
     }
   };
   return (
