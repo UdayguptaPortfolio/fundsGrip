@@ -13,8 +13,6 @@ import { useSelector } from "react-redux";
 import CustomDropDown from "../../Dropdown/CustomDropDown";
 
 const ParentNewAdmin = ({ handleCloseModal, handleChange, handleSubmit }) => {
-  const { data: countriesData } = useSelector((state) => state?.getAllCountry?.country?.countries);
-
   return (
     <>
       <StyledTitle
@@ -24,15 +22,15 @@ const ParentNewAdmin = ({ handleCloseModal, handleChange, handleSubmit }) => {
         wordSpacing="12px"
         mb="40px"
         pl="50px">
-        NEW PARENT
+        NEW ADMIN
       </StyledTitle>
       <DialogContent sx={{ pl: "50px" }}>
         <DialogContentText>
           <DefaultFormGroup sx={{ alignItems: "center" }}>
-            <StyledLabel htmlFor="name">Parent Name</StyledLabel>
+            <StyledLabel htmlFor="name">Admin Name</StyledLabel>
             <StyledInput
               sx={{ backgroundColor: "#f0f0f0", borderColor: "1px solid #f0f0f0" }}
-              name="parent_name"
+              name="admin_name"
               id="outlined-basic"
               variant="outlined"
               focused={false}
@@ -40,19 +38,10 @@ const ParentNewAdmin = ({ handleCloseModal, handleChange, handleSubmit }) => {
             />
           </DefaultFormGroup>
           <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Country*</StyledLabel>
-            <CustomDropDown
-              handleChange={handleChange}
-              name="country_id"
-              data={countriesData}
-              innerField="name"
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Currency</StyledLabel>
+            <StyledLabel htmlFor="name">Email</StyledLabel>
             <StyledInput
               sx={{ backgroundColor: "#f0f0f0", borderRadius: "0px", border: "none" }}
-              name="currency"
+              name="email"
               id="outlined-basic"
               variant="outlined"
               focused={false}
@@ -60,35 +49,13 @@ const ParentNewAdmin = ({ handleCloseModal, handleChange, handleSubmit }) => {
             />
           </DefaultFormGroup>
           <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Tax Rate</StyledLabel>
+            <StyledLabel htmlFor="name">Phone No</StyledLabel>
             <StyledInput
               sx={{ backgroundColor: "#f0f0f0" }}
-              name="tax_rate_in_percentage"
+              name="phone_number"
               id="outlined-basic"
               variant="outlined"
               type="number"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Domain Ext.</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0" }}
-              name="domain_extension"
-              id="outlined-basic"
-              variant="outlined"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Parent abbr.</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0" }}
-              name="parent_abbreviation"
-              id="outlined-basic"
-              variant="outlined"
               focused={false}
               onChange={handleChange}
             />
