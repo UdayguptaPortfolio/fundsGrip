@@ -3,8 +3,8 @@ const { body,validationResult } = require("express-validator");
 const { sanitizeBody } = require("express-validator");
 const apiResponse = require("../helpers/apiResponse");
 const auth = require("../middlewares/jwt");
-var mongoose = require("mongoose");
-mongoose.set("useFindAndModify", false);
+// var mongoose = require("mongoose");
+// mongoose.set("useFindAndModify", false);
 
 // Book Schema
 function BookData(data) {
@@ -48,22 +48,22 @@ exports.bookList = [
 exports.bookDetail = [
 	auth,
 	function (req, res) {
-		if(!mongoose.Types.ObjectId.isValid(req.params.id)){
-			return apiResponse.successResponseWithData(res, "Operation success", {});
-		}
-		try {
-			Book.findOne({_id: req.params.id,user: req.user._id},"_id title description isbn createdAt").then((book)=>{                
-				if(book !== null){
-					let bookData = new BookData(book);
-					return apiResponse.successResponseWithData(res, "Operation success", bookData);
-				}else{
-					return apiResponse.successResponseWithData(res, "Operation success", {});
-				}
-			});
-		} catch (err) {
-			//throw error in json response with status 500. 
-			return apiResponse.ErrorResponse(res, err);
-		}
+		// if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+		// 	return apiResponse.successResponseWithData(res, "Operation success", {});
+		// }
+		// try {
+		// 	Book.findOne({_id: req.params.id,user: req.user._id},"_id title description isbn createdAt").then((book)=>{                
+		// 		if(book !== null){
+		// 			let bookData = new BookData(book);
+		// 			return apiResponse.successResponseWithData(res, "Operation success", bookData);
+		// 		}else{
+		// 			return apiResponse.successResponseWithData(res, "Operation success", {});
+		// 		}
+		// 	});
+		// } catch (err) {
+		// 	//throw error in json response with status 500. 
+		// 	return apiResponse.ErrorResponse(res, err);
+		// }
 	}
 ];
 
@@ -151,30 +151,30 @@ exports.bookUpdate = [
 				return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
 			}
 			else {
-				if(!mongoose.Types.ObjectId.isValid(req.params.id)){
-					return apiResponse.validationErrorWithData(res, "Invalid Error.", "Invalid ID");
-				}else{
-					Book.findById(req.params.id, function (err, foundBook) {
-						if(foundBook === null){
-							return apiResponse.notFoundResponse(res,"Book not exists with this id");
-						}else{
-							//Check authorized user
-							if(foundBook.user.toString() !== req.user._id){
-								return apiResponse.unauthorizedResponse(res, "You are not authorized to do this operation.");
-							}else{
-								//update book.
-								Book.findByIdAndUpdate(req.params.id, book, {},function (err) {
-									if (err) { 
-										return apiResponse.ErrorResponse(res, err); 
-									}else{
-										let bookData = new BookData(book);
-										return apiResponse.successResponseWithData(res,"Book update Success.", bookData);
-									}
-								});
-							}
-						}
-					});
-				}
+				// if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+				// 	return apiResponse.validationErrorWithData(res, "Invalid Error.", "Invalid ID");
+				// }else{
+				// 	Book.findById(req.params.id, function (err, foundBook) {
+				// 		if(foundBook === null){
+				// 			return apiResponse.notFoundResponse(res,"Book not exists with this id");
+				// 		}else{
+				// 			//Check authorized user
+				// 			if(foundBook.user.toString() !== req.user._id){
+				// 				return apiResponse.unauthorizedResponse(res, "You are not authorized to do this operation.");
+				// 			}else{
+				// 				//update book.
+				// 				Book.findByIdAndUpdate(req.params.id, book, {},function (err) {
+				// 					if (err) { 
+				// 						return apiResponse.ErrorResponse(res, err); 
+				// 					}else{
+				// 						let bookData = new BookData(book);
+				// 						return apiResponse.successResponseWithData(res,"Book update Success.", bookData);
+				// 					}
+				// 				});
+				// 			}
+				// 		}
+				// 	});
+				// }
 			}
 		} catch (err) {
 			//throw error in json response with status 500. 
@@ -193,32 +193,32 @@ exports.bookUpdate = [
 exports.bookDelete = [
 	auth,
 	function (req, res) {
-		if(!mongoose.Types.ObjectId.isValid(req.params.id)){
-			return apiResponse.validationErrorWithData(res, "Invalid Error.", "Invalid ID");
-		}
-		try {
-			Book.findById(req.params.id, function (err, foundBook) {
-				if(foundBook === null){
-					return apiResponse.notFoundResponse(res,"Book not exists with this id");
-				}else{
-					//Check authorized user
-					if(foundBook.user.toString() !== req.user._id){
-						return apiResponse.unauthorizedResponse(res, "You are not authorized to do this operation.");
-					}else{
-						//delete book.
-						Book.findByIdAndRemove(req.params.id,function (err) {
-							if (err) { 
-								return apiResponse.ErrorResponse(res, err); 
-							}else{
-								return apiResponse.successResponse(res,"Book delete Success.");
-							}
-						});
-					}
-				}
-			});
-		} catch (err) {
-			//throw error in json response with status 500. 
-			return apiResponse.ErrorResponse(res, err);
-		}
+		// if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+		// 	return apiResponse.validationErrorWithData(res, "Invalid Error.", "Invalid ID");
+		// }
+		// try {
+		// 	Book.findById(req.params.id, function (err, foundBook) {
+		// 		if(foundBook === null){
+		// 			return apiResponse.notFoundResponse(res,"Book not exists with this id");
+		// 		}else{
+		// 			//Check authorized user
+		// 			if(foundBook.user.toString() !== req.user._id){
+		// 				return apiResponse.unauthorizedResponse(res, "You are not authorized to do this operation.");
+		// 			}else{
+		// 				//delete book.
+		// 				Book.findByIdAndRemove(req.params.id,function (err) {
+		// 					if (err) { 
+		// 						return apiResponse.ErrorResponse(res, err); 
+		// 					}else{
+		// 						return apiResponse.successResponse(res,"Book delete Success.");
+		// 					}
+		// 				});
+		// 			}
+		// 		}
+		// 	});
+		// } catch (err) {
+		// 	//throw error in json response with status 500. 
+		// 	return apiResponse.ErrorResponse(res, err);
+		// }
 	}
 ];
