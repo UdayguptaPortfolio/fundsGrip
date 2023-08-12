@@ -79,7 +79,8 @@ export const tableBodyData = [
     city: "Powayan",
     profession: "Software Developer",
     query: "Query",
-    status: "Pending"
+    status: "Pending",
+    created_by: "Admin"
   },
   {
     id: "2",
@@ -90,6 +91,7 @@ export const tableBodyData = [
     city: "SPN",
     profession: "Engineer",
     query: "Query",
-    status: "Pending"
+    status: "Pending",
+    created_by: "Admin"
   }
 ];

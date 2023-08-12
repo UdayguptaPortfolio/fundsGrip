@@ -40,6 +40,14 @@ export const StyledInput = styled(TextField)`
   border: none;
 `;
 
+export const TextFieldStyledInput = styled(StyledInput)`
+  width: 236px;
+  .MuiInputBase-formControl{
+    height:auto;
+  }
+}
+`;
+
 // export const StyledButton = styled(Button)`
 //   border: 1px solid green;
 //   color: green;
