@@ -10,7 +10,7 @@ import {
   CancelBtn
 } from "./Styled";
 import CommonDropDown from "../../Dropdown/CommonDropdown";
-import { patronsManageMenus } from "../../constant";
+import { addNewEmployeeForm, patronsManageMenus } from "../../constant";
 import { useDispatch, useSelector } from "react-redux";
 import CustomDropDown from "../../Dropdown/CustomDropDown";
 import { useGetParentVersionsQuery } from "../../../redux/slices/parentVersioning/parentVersioningApiSlice";
@@ -20,11 +20,12 @@ const AddNewAdmin = ({ handleCloseModal, handleChange, handleSubmit, inviteAdmin
   const dispatch = useDispatch();
   const { invitation_for } = inviteAdminData || "";
   const version = localStorage.getItem("version");
-  const { data: parentVersioningData, isLoading: gettingParentVersionLoading } =
-    useGetParentVersionsQuery("GetAllParentVersion", {
-      skip: version
-    });
-  const { data: versionData } = useSelector((state) => state?.getParentVersion?.parentVersion);
+  // const { data: parentVersioningData, isLoading: gettingParentVersionLoading } =
+  //   useGetParentVersionsQuery("GetAllParentVersion", {
+  //     skip: version
+  //   });
+  // const { data: versionData } = useSelector((state) => state?.getParentVersion?.parentVersion);
+  const parentVersioningData = [];
 
   useEffect(() => {
     dispatch(getParentVersioningAction.setParentVersions(parentVersioningData));
@@ -39,73 +40,47 @@ const AddNewAdmin = ({ handleCloseModal, handleChange, handleSubmit, inviteAdmin
         wordSpacing="12px"
         mb="40px"
         pl="50px">
-        CREATE NEW ADMIN
+        CREATE NEW EMPLOYEE
       </StyledTitle>
       <DialogContent sx={{ pl: "50px" }}>
         <DialogContentText>
-          <DefaultFormGroup sx={{ alignItems: "center" }}>
-            <StyledLabel htmlFor="name">Username*</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0", borderColor: "1px solid #f0f0f0" }}
-              name="email"
-              id="outlined-basic"
-              variant="outlined"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">First Name*</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0" }}
-              name="first_name"
-              id="outlined-basic"
-              variant="outlined"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Last Name*</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0", borderRadius: "0px", border: "none" }}
-              name="last_name"
-              id="outlined-basic"
-              variant="outlined"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
-            <StyledLabel htmlFor="name">Phone No</StyledLabel>
-            <StyledInput
-              sx={{ backgroundColor: "#f0f0f0" }}
-              name="phone_number"
-              id="outlined-basic"
-              variant="outlined"
-              focused={false}
-              onChange={handleChange}
-            />
-          </DefaultFormGroup>
-          <DefaultFormGroup>
+          {addNewEmployeeForm?.map((item, index) => {
+            const { label, name, type, required } = item || {};
+            return (
+              <DefaultFormGroup key={index}>
+                <StyledLabel htmlFor="name">{label}</StyledLabel>
+                <StyledInput
+                  sx={{ backgroundColor: "#f0f0f0" }}
+                  name={name}
+                  id="outlined-basic"
+                  variant="outlined"
+                  focused={false}
+                  onChange={handleChange}
+                  type={type}
+                  required={required}
+                />
+              </DefaultFormGroup>
+            );
+          })}
+          {/* <DefaultFormGroup>
             <StyledLabel htmlFor="name">Admin Role*</StyledLabel>
             <CommonDropDown
               handleChange={handleChange}
               name="invitation_for"
               data={patronsManageMenus}
             />
-          </DefaultFormGroup>
-          {invitation_for === "parent_admin" && (
+          </DefaultFormGroup> */}
+          {/* {invitation_for === "parent_admin" && (
             <DefaultFormGroup>
               <StyledLabel htmlFor="name">Parent*</StyledLabel>
               <CustomDropDown
                 handleChange={handleChange}
                 name="parent_version_id"
-                data={versionData}
+                data={[]}
                 innerField="parent_name"
               />
             </DefaultFormGroup>
-          )}
+          )} */}
         </DialogContentText>
       </DialogContent>
 

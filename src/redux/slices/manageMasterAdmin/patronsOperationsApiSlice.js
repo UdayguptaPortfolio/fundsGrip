@@ -25,21 +25,6 @@ export const updatePatronApiSlice = userApiSlice.injectEndpoints({
         body: data
       }),
       invalidatesTags: ["GetAllPatrons"]
-    }),
-    blockPatron: builder.mutation({
-      query: (payload) => ({
-        url: `/patrons`,
-        method: "PATCH",
-        body: { ...payload }
-      }),
-      invalidatesTags: ["GetAllPatrons"]
-    }),
-    resetPasswordByAdmin: builder.mutation({
-      query: (payload) => ({
-        url: `/patrons/reset_password`,
-        method: "POST",
-        body: { ...payload }
-      })
     })
   })
 });
@@ -47,7 +32,5 @@ export const updatePatronApiSlice = userApiSlice.injectEndpoints({
 export const {
   useUpdatePatronsMutation,
   useDeleteSpecificPatronMutation,
-  useDeleteBulkPatronMutation,
-  useBlockPatronMutation,
-  useResetPasswordByAdminMutation
+  useDeleteBulkPatronMutation
 } = updatePatronApiSlice;

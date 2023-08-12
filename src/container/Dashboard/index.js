@@ -7,8 +7,16 @@ import AuthLayout from "../../components/AuthLayout";
 import { StyledTypography } from "../../components/Common/StyledTypography";
 import { StyledButton } from "../../components/Common/StyledButton";
 import SelectDropdown from "../../components/Dropdown/SelectDropdown";
-import { StyledDiv, StyledDialog, StyledTableBox, StyledGrid, StyledInput } from "./Styled";
-import AddNewAdmin from "../../components/Modals/AddNewAdmin";
+import {
+  StyledDiv,
+  StyledDialog,
+  StyledTableBox,
+  StyledGrid,
+  StyledInput,
+  StyledRowDiv
+} from "./Styled";
+import AddNewAdmin from "../../components/Modals/AddNewEmployee";
+import AddNewCustomer from "../../components/Modals/AddNewCustomers";
 import EditModal from "../../components/Modals/EditModal";
 import DataTable from "../../components/Table";
 import { useExportPatronsMutation } from "../../redux/slices/manageMasterAdmin/exportPatronsApiSlice";
@@ -36,12 +44,6 @@ const Dashboard = () => {
   });
   const [inviteAdminData, setInviteAdminData] = useState({});
   // const [inviteMasterAdmin, { isLoading, data }] = useInviteMasterAdminMutation();
-  // const [resetPasswordByAdmin, { data: resetpasswordData, isLoading: resPwdLoading }] =
-  //   useResetPasswordByAdminMutation();
-  // const [blockPatron, { data: blockPatronData, isLoading: blockPatronLoading }] =
-  //   useBlockPatronMutation();
-  // const [deleteBulkPatron, { data: delPatrondata, isoading: delPatronLoading }] =
-  //   useDeleteBulkPatronMutation();
   // const [exportPatrons, { data: exportPatrondata, isoading: exportPatronLoading }] =
   //   useExportPatronsMutation();
   // const [searchData, { data: searchPatrondata, isoading: searchPatronLoading }] =
@@ -66,30 +68,6 @@ const Dashboard = () => {
   // }, [data]);
 
   // useEffect(() => {
-  //   if (resetpasswordData?.status === 200) {
-  //     toast.success(resetpasswordData?.message);
-  //   } else {
-  //     toast.error(resetpasswordData?.message);
-  //   }
-  // }, [resetpasswordData]);
-
-  // useEffect(() => {
-  //   if (blockPatronData?.status === 200) {
-  //     toast.success(blockPatronData?.message);
-  //   } else {
-  //     toast.error(blockPatronData?.message);
-  //   }
-  // }, [blockPatronData]);
-
-  // useEffect(() => {
-  //   if (delPatrondata?.status === 200) {
-  //     toast.success(delPatrondata?.message);
-  //   } else {
-  //     toast.error(delPatrondata?.message);
-  //   }
-  // }, [delPatrondata]);
-
-  // useEffect(() => {
   //   if (exportPatrondata?.status === 200) {
   //     toast.success(exportPatrondata?.message);
   //     exportPatrondata?.download_url && window.open(exportPatrondata?.download_url);
@@ -107,7 +85,8 @@ const Dashboard = () => {
     } else {
       setOpenModal((prevState) => ({
         ...prevState,
-        openAddModal: false
+        openAddModal: false,
+        openAddCustomer: false
       }));
     }
     setInviteAdminData((prevState) => ({
@@ -117,11 +96,18 @@ const Dashboard = () => {
     setSelectedValue([]);
   };
 
-  const handleClickAddUser = () => {
-    setOpenModal((prevState) => ({
-      ...prevState,
-      openAddModal: true
-    }));
+  const handleClickAddUser = (type) => {
+    if (type === "employee") {
+      setOpenModal((prevState) => ({
+        ...prevState,
+        openAddModal: true
+      }));
+    } else if (type === "customer") {
+      setOpenModal((prevState) => ({
+        ...prevState,
+        openAddCustomer: true
+      }));
+    }
   };
 
   const exportData = (type) => {
@@ -211,24 +197,7 @@ const Dashboard = () => {
   };
 
   const handleModal = (type) => {
-    if (type === "Reset") {
-      let payload = {
-        id: selectedValue[0]?.id
-      };
-      // resetPasswordByAdmin(payload);
-    } else if (type === "Block") {
-      let payload = {
-        ids: openModal?.selectedDataIds,
-        blocked: true
-      };
-      // blockPatron(payload);
-    } else if (type === "Unblock") {
-      let payload = {
-        ids: openModal?.selectedDataIds,
-        blocked: false
-      };
-      // blockPatron(payload);
-    } else if (type === "Delete admin") {
+    if (type === "Delete admin") {
       let payload = {
         ids: openModal?.selectedDataIds
       };
@@ -279,12 +248,17 @@ const Dashboard = () => {
               </StyledTypography>
             </Box>
             <StyledTypography variant="h5" ml="10px">
-              Add and manage admin roles
+              Add and manage roles
             </StyledTypography>
           </div>
-          <StyledButton mt="30px" ml={10} mb={10} onClick={handleClickAddUser}>
-            CREATE NEW ADMIN
-          </StyledButton>
+          <StyledRowDiv>
+            <StyledButton mt="30px" ml={10} mb={10} onClick={() => handleClickAddUser("employee")}>
+              CREATE NEW EMPLOYEE
+            </StyledButton>
+            <StyledButton mt="30px" ml={10} mb={10} onClick={() => handleClickAddUser("customer")}>
+              CREATE NEW CUSTOMERS
+            </StyledButton>
+          </StyledRowDiv>
         </StyledDiv>
         {/* Filter and table */}
         <Box sx={{ backgroundColor: "#f0f0f0" }}>
@@ -333,6 +307,16 @@ const Dashboard = () => {
       <div style={{ position: "relative" }}>
         <StyledDialog open={openModal?.openAddModal} onClose={handleCloseModal} maxWidth="lg">
           <AddNewAdmin
+            handleCloseModal={handleCloseModal}
+            handleChange={handleChange}
+            inviteAdminData={inviteAdminData}
+            handleSubmit={handleSubmit}
+          />
+        </StyledDialog>
+      </div>
+      <div style={{ position: "relative" }}>
+        <StyledDialog open={openModal?.openAddCustomer} onClose={handleCloseModal} maxWidth="lg">
+          <AddNewCustomer
             handleCloseModal={handleCloseModal}
             handleChange={handleChange}
             inviteAdminData={inviteAdminData}
