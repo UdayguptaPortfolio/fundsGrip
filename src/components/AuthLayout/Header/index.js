@@ -32,7 +32,7 @@ const commonStyle = {
 function ResponsiveAppBar() {
   const { userData } = useSelector((state) => state?.authState);
   const { first_name, last_name } = userData?.user?.data?.attributes || {};
-  const profile_name = first_name + " " + last_name;
+  const profile_name = first_name + " " + last_name || "Admin";
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [signOutUser, { data }] = useSignOutUserMutation();
   const navigate = useNavigate();
@@ -130,11 +130,9 @@ function ResponsiveAppBar() {
               </Menu>
               <StyledTypography
                 sx={{ fontSize: "12px", ml: 8, fontWeight: "bold", letterSpacing: "2px" }}>
-                {profile_name?.toUpperCase()}
+                {"Admin"}
               </StyledTypography>
-              <IconButton>
-                <MoreVertIcon sx={{ color: "black" }} />
-              </IconButton>
+              <IconButton>{/* <MoreVertIcon sx={{ color: "black" }} /> */}</IconButton>
             </Box>
           </Toolbar>
         </Container>
@@ -145,7 +143,7 @@ function ResponsiveAppBar() {
             width: "100%"
           }}>
           <StyledTypography variant="h5" color="#fff" pt="15px" ml="20px">
-            You're managing <b>Admins</b>
+            You're managing <b>All Roles</b>
           </StyledTypography>
         </Box>
       </AppBar>

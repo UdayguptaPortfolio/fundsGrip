@@ -296,11 +296,11 @@ const Dashboard = () => {
             </Grid>
           </Grid>
           <StyledTableBox margin="25px" background="#f8f4f4" padding="50px 50px">
-            {/* <DataTable
+            <DataTable
               selectedValue={selectedValue}
               setSelectedValue={setSelectedValue}
               setOpenModal={setOpenModal}
-            /> */}
+            />
           </StyledTableBox>
         </Box>
       </AuthLayout>

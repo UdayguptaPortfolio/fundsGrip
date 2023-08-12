@@ -1,35 +1,38 @@
 export const TableheadData = [
   {
-    id: 1,
-    label: "User ID"
+    label: ""
   },
   {
-    id: 2,
-    label: "Name"
+    label: "PAN CARD",
+    name: "pan_number"
   },
   {
-    id: 3,
-    label: "Email"
+    label: "Email",
+    name: "email"
   },
   {
-    id: 4,
-    label: "Access Level"
+    label: "Name",
+    name: "name"
   },
   {
-    id: 5,
-    label: "Role"
+    label: "Phone No",
+    name: "phone_number"
   },
   {
-    id: 6,
-    label: "Status"
+    label: "City",
+    name: "city"
   },
   {
-    id: 7,
-    label: "Last Login"
+    label: "Profession",
+    name: "profession"
   },
   {
-    id: 8,
-    label: "Sign Ins"
+    label: "Query",
+    name: "query"
+  },
+  {
+    label: "Status",
+    name: "status"
   }
 ];
 
@@ -64,106 +67,27 @@ export const ParentTableHeadData = [
   }
 ];
 
-export const TableheadDatas = [
+export const tableBodyData = [
   {
-    id: 1,
-    label: "Display Name"
+    id: "1",
+    pan_number: "CEDPG7971P",
+    email: "udayguptaspn@gmail.com",
+    name: "Uday Gupta",
+    phone_number: "6386706810",
+    city: "Powayan",
+    profession: "Software Developer",
+    query: "Query",
+    status: "Pending"
   },
   {
-    id: 2,
-    label: "Name"
-  },
-  {
-    id: 3,
-    label: "Email"
-  },
-  {
-    id: 4,
-    label: "Status"
-  },
-  {
-    id: 5,
-    label: "Last Login"
-  }
-];
-
-export const TableBodyData = [
-  {
-    id: 1,
-    user_id: "5246",
-    name: "Craig Canveneny",
-    email: "craig@gmail.com",
-    level: "Master",
-    role: "South Africa",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32",
-    sign: "12"
-  },
-  {
-    id: 2,
-    user_id: "5246 ",
-    name: "Ben Mitchell",
-    email: "ben@pirkx.com",
-    level: "Master",
-    role: "South Africa",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32",
-    sign: "12"
-  },
-  {
-    id: 3,
-    user_id: "5246 ",
-    name: "Stail Smith",
-    email: "smith@pirkx.com",
-    level: "Parent",
-    role: "South Africa",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32",
-    sign: "12"
-  },
-  {
-    id: 4,
-    user_id: "5246 ",
-    name: "Astelle Mchlntyre",
-    level: "Parent",
-    role: "United Kingdom",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32",
-    sign: "12"
-  }
-];
-
-export const TableBodyDatas = [
-  {
-    id: 1,
-    displayname: "Craig Canveneny",
-    name: "Craig Canveneny",
-    email: "craig@gmail.com",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32"
-  },
-  {
-    id: 2,
-    displayname: "farhan",
-    name: "farhan",
-    email: "farhan@gmail.com",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32"
-  },
-  {
-    id: 3,
-    displayname: "ashok",
-    name: "ashoky",
-    email: "ashoky@gmail.com",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32"
-  },
-  {
-    id: 1,
-    displayname: "sourav",
-    name: "sourav",
-    email: "sourav@gmail.com",
-    status: "Waiting",
-    login_time: "20/12/2022 at 15:32"
+    id: "2",
+    pan_number: "ABCD7898G",
+    email: "abcspn@gmail.com",
+    name: "Anurag Gupta",
+    phone_number: "7666666666",
+    city: "SPN",
+    profession: "Engineer",
+    query: "Query",
+    status: "Pending"
   }
 ];

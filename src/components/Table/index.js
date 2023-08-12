@@ -19,7 +19,7 @@ import {
 } from "./Styled.js";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { TableheadData } from "./Data";
+import { TableheadData, tableBodyData } from "./Data";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetPatronsQuery } from "../../redux/slices/manageMasterAdmin/getPatronsApiSlice";
 import { getPatronSliceAction } from "../../redux/slices";
@@ -31,7 +31,7 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
   const { data = [], total_page_count = 0 } = useSelector(
     (state) => state?.getPatronState?.patronsData
   );
-  const [MyArray, setMyArray] = useState(data);
+  const [MyArray, setMyArray] = useState(tableBodyData);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
@@ -47,16 +47,16 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
   const patronData = [];
   const isSuccess = true;
 
-  useEffect(() => {
-    if (patronData && isSuccess) {
-      dispatch(getPatronSliceAction.setPatronsList(patronData));
-    }
-  }, [patronData, isSuccess, dispatch]);
+  // useEffect(() => {
+  //   if (patronData && isSuccess) {
+  //     dispatch(getPatronSliceAction.setPatronsList(patronData));
+  //   }
+  // }, [patronData, isSuccess, dispatch]);
 
-  useEffect(() => {
-    setMyArray(data);
-    data && toast.success(data?.message);
-  }, [data]);
+  // useEffect(() => {
+  //   setMyArray(data);
+  //   data && toast.success(data?.message);
+  // }, [data]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -91,7 +91,7 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
 
   const handleStatus = (status) => {
     let color;
-    if (status === "waiting") {
+    if (status === "Pending") {
       color = "#ffc107";
     } else if (status === "live") {
       color = "green";
@@ -129,7 +129,7 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
     <>
       <LoadingBackdrop open={false} />
       <StyledTableContainer>
-        {data?.length ? (
+        {MyArray?.length ? (
           <>
             {" "}
             <Table aria-label="simple table">
@@ -147,12 +147,12 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                           <Grid
                             sx={{
                               display: "flex",
-                              justifyContent: "center",
+                              justifyContent: "start",
                               alignItems: "center",
                               gap: "20px"
                             }}>
                             {item.label}
-                            <Grid sx={{ display: "flex", flexDirection: "column" }}>
+                            {/* <Grid sx={{ display: "flex", flexDirection: "column" }}>
                               <ExpandLessIcon
                                 sx={{ cursor: "pointer", fontSize: "15px" }}
                                 onClick={sortAscending}
@@ -161,7 +161,7 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                                 sx={{ cursor: "pointer", fontSize: "15px" }}
                                 onClick={sortDescending}
                               />
-                            </Grid>
+                            </Grid> */}
                           </Grid>
                         </TableCell>
                       );
@@ -170,8 +170,8 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
               </StyledTableHead>
               <StyledTableBody className="hover">
                 {MyArray?.map((item, index) => {
-                  const { name, email, access_level, status, last_sign_in_at, sign_in_count } =
-                    item?.attributes || "-";
+                  const { name, email, pan_number, status, phone_number, city, profession, query } =
+                    item || {};
                   return (
                     <StyledTableRow
                       key={item?.id}
@@ -185,30 +185,30 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                           checked={selectedValue.includes(item)}
                           onChange={() => handleChecked(index, item)}
                         />
-                        <Typography>{item?.id}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
-                        <Typography>{name}</Typography>
+                        <Typography>{pan_number}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
                         <Typography>{email}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
-                        <Typography>{access_level}</Typography>
+                        <Typography>{name}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
-                        <Typography>{item?.type}</Typography>
+                        <Typography>{phone_number}</Typography>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <Typography>{city}</Typography>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <Typography>{profession}</Typography>
+                      </StyledTableCell>
+                      <StyledTableCell>
+                        <Typography>{query}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
                         <Typography sx={{ color: "#ffc107" }}>{handleStatus(status)}</Typography>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        <Typography>
-                          {last_sign_in_at ? dateFormat(last_sign_in_at) : "-"}
-                        </Typography>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        <Typography>{sign_in_count}</Typography>
                       </StyledTableCell>
                     </StyledTableRow>
                   );
