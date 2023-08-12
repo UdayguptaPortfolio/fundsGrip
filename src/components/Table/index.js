@@ -8,14 +8,19 @@ import {
   Checkbox,
   TablePagination,
   Box,
-  Grid
+  Grid,
+  Tooltip
 } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import {
   StyledTableBody,
   StyledTableRow,
   StyledTableCell,
   StyledTableHead,
-  StyledTableContainer
+  StyledTableContainer,
+  StyledFlexTableCell
 } from "./Styled.js";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -26,6 +31,9 @@ import { getPatronSliceAction } from "../../redux/slices";
 import LoadingBackdrop from "../../components/LoadingBackDrop/LoadingBackdrop";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
+import { Delete } from "@mui/icons-material";
+import { StyledDialog } from "../Modals/Styled";
+import InfoDataModal from "../Modals/InfoData";
 
 const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
   const { data = [], total_page_count = 0 } = useSelector(
@@ -35,6 +43,10 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
+  const [viewQuery, setViewQuery] = useState({
+    modal: false,
+    query: ""
+  });
   // const {
   //   data: patronData,
   //   isSuccess,
@@ -125,6 +137,20 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
     // colData.sort((a, b) => a.name > b.name);
     setMyArray(colData);
   };
+  const handleViewQuery = (type, query) => {
+    if (type === "Close") {
+      setViewQuery((prev) => ({
+        ...prev,
+        modal: false
+      }));
+    } else {
+      setViewQuery((prev) => ({
+        ...prev,
+        modal: true,
+        query
+      }));
+    }
+  };
   return (
     <>
       <LoadingBackdrop open={false} />
@@ -176,16 +202,17 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                     <StyledTableRow
                       key={item?.id}
                       sx={{
-                        backgroundColor: checkBg(item, index) ? "#FFFFFF" : ""
+                        backgroundColor: checkBg(item, index) ? "#FFFFFF" : "",
+                        cursor: "pointer"
                       }}
                       onClick={() => handleChecked(index, item, "onClick")}>
-                      <StyledTableCell sx={{ display: "flex", alignItems: "center" }}>
+                      {/* <StyledTableCell sx={{ display: "flex", alignItems: "center" }}>
                         <Checkbox
                           color="primary"
                           checked={selectedValue.includes(item)}
                           onChange={() => handleChecked(index, item)}
                         />
-                      </StyledTableCell>
+                      </StyledTableCell> */}
                       <StyledTableCell>
                         <Typography>{pan_number}</Typography>
                       </StyledTableCell>
@@ -205,11 +232,28 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                         <Typography>{profession}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
-                        <Typography>{query}</Typography>
+                        {/* <Typography>{query}</Typography> */}
+                        <Tooltip title="View Query">
+                          <OpenInNewOutlinedIcon
+                            htmlColor="grey"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleViewQuery("Open", query);
+                            }}
+                          />
+                        </Tooltip>
                       </StyledTableCell>
                       <StyledTableCell>
                         <Typography sx={{ color: "#ffc107" }}>{handleStatus(status)}</Typography>
                       </StyledTableCell>
+                      <StyledFlexTableCell>
+                        <Tooltip title="Delete">
+                          <DeleteOutlineIcon htmlColor="red" />
+                        </Tooltip>
+                        <Tooltip title="Export">
+                          <FileDownloadOutlinedIcon htmlColor="blue" />
+                        </Tooltip>
+                      </StyledFlexTableCell>
                     </StyledTableRow>
                   );
                 })}
@@ -243,6 +287,13 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
       ) : (
         ""
       )}
+      <StyledDialog open={viewQuery?.modal} onClose={() => handleViewQuery("Close")}>
+        <InfoDataModal
+          message={viewQuery?.query}
+          title={"VIEW QUERY"}
+          handleModal={handleViewQuery}
+        />
+      </StyledDialog>
     </>
   );
 };

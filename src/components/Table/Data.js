@@ -1,8 +1,5 @@
 export const TableheadData = [
   {
-    label: ""
-  },
-  {
     label: "PAN CARD",
     name: "pan_number"
   },
@@ -33,6 +30,9 @@ export const TableheadData = [
   {
     label: "Status",
     name: "status"
+  },
+  {
+    label: "Actions"
   }
 ];
 

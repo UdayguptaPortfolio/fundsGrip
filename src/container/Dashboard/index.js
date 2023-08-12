@@ -35,9 +35,6 @@ const Dashboard = () => {
   const [openModal, setOpenModal] = useState({
     openAddModal: false,
     openEditModal: false,
-    confirmationModalReset: false,
-    confirmationModalBlockAdmin: false,
-    confirmationModalUnblockAdmin: false,
     confirmationModalDeleteAdmin: false,
     selectedDataIds: [],
     initialStatus: selectedValue[0]?.attributes?.status
@@ -121,61 +118,6 @@ const Dashboard = () => {
     // exportPatrons(payload);
   };
 
-  const handleClickEditUser = (type) => {
-    if (selectedValue?.length) {
-      if (selectedValue?.length > 1) {
-        if (type === "Block") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalBlockAdmin: true
-          }));
-        } else if (type === "Unblock") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalUnblockAdmin: true
-          }));
-        } else if (type === "Delete Admin") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalDeleteAdmin: true
-          }));
-        } else {
-          toast.error("Please Select only one data");
-        }
-      } else {
-        if (type === "Edit") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            openEditModal: true
-          }));
-        } else if (type === "Reset") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalReset: true
-          }));
-        } else if (type === "Block") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalBlockAdmin: true
-          }));
-        } else if (type === "Unblock") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalUnblockAdmin: true
-          }));
-        } else if (type === "Delete Admin") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalDeleteAdmin: true
-          }));
-        }
-      }
-    } else {
-      toast.error("Please Select the data");
-      setSelectedValue([]);
-    }
-  };
-
   // Invitation for creating admins
 
   const handleChange = (e) => {
@@ -205,9 +147,6 @@ const Dashboard = () => {
     }
     setOpenModal((prevState) => ({
       ...prevState,
-      confirmationModalReset: false,
-      confirmationModalBlockAdmin: false,
-      confirmationModalUnblockAdmin: false,
       confirmationModalDeleteAdmin: false
     }));
   };
@@ -262,38 +201,15 @@ const Dashboard = () => {
         </StyledDiv>
         {/* Filter and table */}
         <Box sx={{ backgroundColor: "#f0f0f0" }}>
-          <Grid container mt={25}>
-            <Grid
-              item
-              sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
-              lg={3}
-              md={4}
-              sm={6}>
-              <Box sx={{ display: "flex", alignItems: "center", ml: 40 }}>
-                <StyledTypography mr="10px" fontSize="18px" color="gray">
-                  Actions
-                </StyledTypography>
-                <SelectDropdown names={actionMenu} handleClickEditUser={handleClickEditUser} />
-              </Box>
-            </Grid>
-            <StyledGrid lg={3} md={4} sm={6}>
-              <Box sx={{ display: "flex", alignItems: "center", ml: 40 }}>
-                <StyledTypography mr="10px" fontSize="18px" color="gray" ml="0px">
-                  Export
-                </StyledTypography>
-                <SelectDropdown names={exportsMenus} handleClickEditUser={exportData} />
-              </Box>
-            </StyledGrid>
-            <Grid lg={6} md={4} sm={12} xs={12}>
-              <Box sx={{ display: "flex", justifyContent: "flex-end", width: "80%" }}>
-                <StyledInput
-                  onChange={handleSearchChange}
-                  id="outlined-adornment"
-                  placeholder="search"
-                  endAdornment={<IconButton>{<SearchOutlinedIcon />}</IconButton>}
-                />
-              </Box>
-            </Grid>
+          <Grid container mt={25} paddingRight={27}>
+            <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+              <StyledInput
+                onChange={handleSearchChange}
+                id="outlined-adornment"
+                placeholder="search"
+                endAdornment={<IconButton>{<SearchOutlinedIcon />}</IconButton>}
+              />
+            </Box>
           </Grid>
           <StyledTableBox margin="25px" background="#f8f4f4" padding="50px 50px">
             <DataTable
@@ -329,36 +245,6 @@ const Dashboard = () => {
           <EditModal handleCloseModal={handleCloseModal} selectedValue={selectedValue} />
         </StyledDialog>
       </div>
-      <StyledDialog open={openModal?.confirmationModalReset} onClose={() => handleModal("Close")}>
-        <ConfirmationModal
-          handleModal={handleModal}
-          message={`Do you really want to Reset the password of ${
-            selectedValue[0]?.attributes?.name?.split(" ")[0]
-          } ${selectedValue[0]?.attributes?.name?.split(" ")[1]}?`}
-          modalFor={"Reset"}
-          title={"RESET ADMIN"}
-        />
-      </StyledDialog>
-      <StyledDialog
-        open={openModal?.confirmationModalBlockAdmin}
-        onClose={() => handleModal("Close")}>
-        <ConfirmationModal
-          handleModal={handleModal}
-          message={`Do you really want to Block the selected admin?.`}
-          modalFor={"Block"}
-          title={"BLOCK ADMIN"}
-        />
-      </StyledDialog>
-      <StyledDialog
-        open={openModal?.confirmationModalUnblockAdmin}
-        onClose={() => handleModal("Close")}>
-        <ConfirmationModal
-          handleModal={handleModal}
-          message={`Do you really want to UnBlock the selected admin?.`}
-          modalFor={"Unblock"}
-          title={"UNBLOCK ADMIN"}
-        />
-      </StyledDialog>
       <StyledDialog
         open={openModal?.confirmationModalDeleteAdmin}
         onClose={() => handleModal("Close")}>
