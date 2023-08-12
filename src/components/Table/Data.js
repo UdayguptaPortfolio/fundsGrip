@@ -39,31 +39,33 @@ export const TableheadData = [
 export const ParentTableHeadData = [
   {
     id: 1,
-    label: "Parent ID"
+    label: "Admin ID"
   },
   {
     id: 2,
-    label: "Parent Name"
+    label: "Admin Name"
   },
   {
     id: 3,
-    label: "Country"
+    label: "Email"
   },
   {
     id: 4,
-    label: "Tax Rate (%)"
+    label: "Phone No"
   },
   {
     id: 5,
-    label: "Currency"
-  },
+    label: "Type"
+  }
+];
+
+export const parentTableBody = [
   {
-    id: 6,
-    label: "Domain Extension"
-  },
-  {
-    id: 7,
-    label: "Parent abbr."
+    id: "1",
+    email: "udayguptaspn@gmail.com",
+    name: "Uday Gupta",
+    phone_number: "6386706810",
+    type: "Super Admin"
   }
 ];
 

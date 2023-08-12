@@ -21,6 +21,7 @@ import {
   useGetParentVersionsQuery
 } from "../../redux/slices/parentVersioning/parentVersioningApiSlice";
 import { getParentVersioningAction } from "../../redux/slices";
+import { parentTableBody } from "../../components/Table/Data";
 
 const AdminScreen = () => {
   const [selectedValue, setSelectedValue] = useState([]);
@@ -34,45 +35,45 @@ const AdminScreen = () => {
   const [parentVersionData, setParentVersionData] = useState({});
   const dispatch = useDispatch();
   const version = localStorage.getItem("version");
-  const { data: parentVersioningData, isLoading: gettingParentVersionLoading } =
-    useGetParentVersionsQuery("GetAllParentVersion", {
-      skip: version
-    });
-  const [createParentVersions, { isLoading, data }] = useCreateParentVersionsMutation();
-  const [deleteBulksParentVersion, { isLoading: deleteLoading, data: delParData }] =
-    useDeleteBulksParentVersionMutation();
-  const { data: versionData } = useSelector((state) => state?.getParentVersion?.parentVersion);
+  // const { data: parentVersioningData, isLoading: gettingParentVersionLoading } =
+  //   useGetParentVersionsQuery("GetAllParentVersion", {
+  //     skip: version
+  //   });
+  // const [createParentVersions, { isLoading, data }] = useCreateParentVersionsMutation();
+  // const [deleteBulksParentVersion, { isLoading: deleteLoading, data: delParData }] =
+  //   useDeleteBulksParentVersionMutation();
+  // const { data: versionData } = useSelector((state) => state?.getParentVersion?.parentVersion);
 
-  useEffect(() => {
-    dispatch(getParentVersioningAction.setParentVersions(parentVersioningData));
-  }, [parentVersioningData]);
+  // useEffect(() => {
+  //   dispatch(getParentVersioningAction.setParentVersions(parentVersioningData));
+  // }, [parentVersioningData]);
 
-  useEffect(() => {
-    let ids = [];
-    selectedValue?.map((item) => ids.push(parseInt(item?.id)));
-    setOpenModal((prevState) => ({
-      ...prevState,
-      selectedDataIds: ids
-    }));
-  }, [selectedValue]);
+  // useEffect(() => {
+  //   let ids = [];
+  //   selectedValue?.map((item) => ids.push(parseInt(item?.id)));
+  //   setOpenModal((prevState) => ({
+  //     ...prevState,
+  //     selectedDataIds: ids
+  //   }));
+  // }, [selectedValue]);
 
-  useEffect(() => {
-    if (data?.status === 200) {
-      toast.success(data?.message);
-      handleCloseModal();
-    } else {
-      toast.error(data?.message);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.status === 200) {
+  //     toast.success(data?.message);
+  //     handleCloseModal();
+  //   } else {
+  //     toast.error(data?.message);
+  //   }
+  // }, [data]);
 
-  useEffect(() => {
-    if (delParData?.status === 200) {
-      toast.success(delParData?.message);
-      handleCloseModal();
-    } else {
-      toast.error(delParData?.message);
-    }
-  }, [delParData]);
+  // useEffect(() => {
+  //   if (delParData?.status === 200) {
+  //     toast.success(delParData?.message);
+  //     handleCloseModal();
+  //   } else {
+  //     toast.error(delParData?.message);
+  //   }
+  // }, [delParData]);
 
   const handleCloseModal = (type) => {
     if (type === "Edit") {
@@ -100,36 +101,6 @@ const AdminScreen = () => {
     }));
   };
 
-  const handleClickEditUser = (type) => {
-    if (selectedValue?.length) {
-      if (selectedValue?.length > 1) {
-        if (type === "Delete Parent Version") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalDelete: true
-          }));
-        } else {
-          toast.error("Please Select only one data");
-        }
-      } else {
-        if (type === "Edit") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            openEditModal: true
-          }));
-        } else if (type === "Delete Parent Version") {
-          setOpenModal((prevState) => ({
-            ...prevState,
-            confirmationModalDelete: true
-          }));
-        }
-      }
-    } else {
-      toast.error("Please Select the data");
-      setSelectedValue([]);
-    }
-  };
-
   // Invitation for creating admins
 
   const handleChange = (e) => {
@@ -153,7 +124,7 @@ const AdminScreen = () => {
         ...parentVersionData
       }
     };
-    createParentVersions(payload);
+    // createParentVersions(payload);
   };
 
   const handleModal = (type) => {
@@ -161,7 +132,7 @@ const AdminScreen = () => {
       let payload = {
         ids: openModal?.selectedDataIds
       };
-      deleteBulksParentVersion(payload);
+      // deleteBulksParentVersion(payload);
     }
     setOpenModal((prevState) => ({
       ...prevState,
@@ -171,7 +142,7 @@ const AdminScreen = () => {
 
   return (
     <>
-      <LoadingBackdrop open={isLoading || gettingParentVersionLoading || deleteLoading} />
+      <LoadingBackdrop open={false} />
       <AuthLayout>
         <StyledDiv>
           <div>
@@ -182,16 +153,16 @@ const AdminScreen = () => {
               </StyledTypography>
             </Box>
             <StyledTypography variant="h5" ml="10px">
-              Add and manage a Parent version
+              Add and manage Admins
             </StyledTypography>
           </div>
           <StyledButton mt="30px" ml={10} mb={10} onClick={handleClickAddUser}>
-            CREATE NEW PARENT
+            CREATE NEW ADMIN
           </StyledButton>
         </StyledDiv>
         {/* Filter and table */}
         <Box sx={{ backgroundColor: "#f0f0f0" }}>
-          <Grid container mt={25}>
+          {/* <Grid container mt={25}>
             <Grid
               item
               sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -202,10 +173,7 @@ const AdminScreen = () => {
                 <StyledTypography mr="10px" fontSize="18px" color="gray">
                   Actions
                 </StyledTypography>
-                <SelectDropdown
-                  names={parentActionMenu}
-                  handleClickEditUser={handleClickEditUser}
-                />
+                <SelectDropdown names={parentActionMenu} />
               </Box>
             </Grid>
             <StyledGrid lg={3} md={4} sm={6}>
@@ -225,12 +193,12 @@ const AdminScreen = () => {
                 />
               </Box>
             </Grid>
-          </Grid>
+          </Grid> */}
           <StyledTableBox margin="25px" background="#f8f4f4" padding="50px 50px">
             <ParentDataTable
               selectedValue={selectedValue}
               setSelectedValue={setSelectedValue}
-              versionData={versionData}
+              versionData={parentTableBody}
             />
           </StyledTableBox>
         </Box>

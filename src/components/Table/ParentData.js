@@ -58,35 +58,20 @@ const ParentDataTable = ({ selectedValue, setSelectedValue, versionData }) => {
                 {versionData?.map((item, index) => {
                   return (
                     <TableRow key={item?.id} sx={{ borderBottom: "1px solid black" }}>
-                      <TableCell
-                        sx={{ display: "flex", alignItems: "center", borderBottom: "none" }}
-                        align="left">
-                        <Checkbox
-                          color="primary"
-                          checked={selectedValue.includes(item)}
-                          onChange={() => handleChecked(index, item)}
-                        />
+                      <TableCell align="left" sx={{ borderBottom: "none" }}>
                         <Typography>{item?.id}</Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ borderBottom: "none" }}>
-                        <Typography>{item?.attributes?.parent_name}</Typography>
+                        <Typography>{item?.name}</Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ borderBottom: "none" }}>
-                        <Typography>{item?.attributes?.country}</Typography>
+                        <Typography>{item?.email}</Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ borderBottom: "none" }}>
-                        <Typography>{item?.attributes?.tax_rate_in_percentage + "%"}</Typography>
+                        <Typography>{item?.phone_number}</Typography>
                       </TableCell>
                       <TableCell align="left" sx={{ borderBottom: "none" }}>
-                        <Typography>{item?.attributes?.currency}</Typography>
-                      </TableCell>
-                      <TableCell align="left" sx={{ borderBottom: "none" }}>
-                        <Typography>{"/" + item?.attributes?.domain_extension}</Typography>
-                      </TableCell>
-                      <TableCell
-                        align="left"
-                        sx={{ borderBottom: "none", textTransform: "uppercase" }}>
-                        <Typography>{item?.attributes?.parent_abbreviation}</Typography>
+                        <Typography>{item?.type}</Typography>
                       </TableCell>
                     </TableRow>
                   );
@@ -102,7 +87,7 @@ const ParentDataTable = ({ selectedValue, setSelectedValue, versionData }) => {
           </>
         )}
       </TableContainer>
-      {versionData?.length ? (
+      {/* {versionData?.length ? (
         <TablePagination
           sx={{ justifyContent: "center", display: "flex", alignItems: "center" }}
           component="div"
@@ -114,7 +99,7 @@ const ParentDataTable = ({ selectedValue, setSelectedValue, versionData }) => {
         />
       ) : (
         ""
-      )}
+      )} */}
     </>
   );
 };
