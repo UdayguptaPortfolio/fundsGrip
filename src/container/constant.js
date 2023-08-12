@@ -3,16 +3,7 @@ export const actionMenu = [
     name: "Edit/View"
   },
   {
-    name: "Reset Password"
-  },
-  {
-    name: "Block Admin"
-  },
-  {
-    name: "Unblock Admin"
-  },
-  {
-    name: "Delete admin"
+    name: "Delete entry"
   }
 ];
 

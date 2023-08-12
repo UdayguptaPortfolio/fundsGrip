@@ -14,6 +14,9 @@ export const StyledTableRow = styled(TableRow)`
 
 export const StyledTableCell = styled(TableCell)`
   border-bottom: none;
+  .MuiTypography-body1 {
+    white-space: nowrap;
+  }
 `;
 
 export const StyledTableHead = styled(TableHead)`
@@ -26,5 +29,5 @@ export const StyledTableHead = styled(TableHead)`
 
 export const StyledTableContainer = styled(TableContainer)`
   height: 75vh;
-  overflow: scroll;
+  overflow: auto;
 `;

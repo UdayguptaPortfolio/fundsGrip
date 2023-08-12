@@ -60,7 +60,7 @@ export default function MiniDrawer() {
 
   return (
     <Drawer variant="permanent" open={open}>
-      <Menu handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose} open={open} />
+      {/* <Menu handleDrawerOpen={handleDrawerOpen} handleDrawerClose={handleDrawerClose} open={open} /> */}
     </Drawer>
   );
 }
