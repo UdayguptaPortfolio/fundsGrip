@@ -139,7 +139,7 @@ const Login = () => {
         //       loading: false
         //     }));
         //   });
-        navigate("/pages/dashboard");
+        navigate("/pages/employee");
         localStorage.setItem("token", "rwertewrwrwr");
       } else if (type === "onForgot") {
         let payload = {

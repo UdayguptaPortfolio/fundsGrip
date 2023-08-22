@@ -7,6 +7,8 @@ import NotFound from "../container/PageNotFound";
 import RequireAuth from "./RequireAuth";
 import ChangePassword from "../container/ChangePassword";
 import AdminScreen from "../container/Admins";
+import EmployeePortal from "../container/Employee";
+import Customers from "../container/Customers";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="/pages" element={<RequireAuth />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="admins" element={<AdminScreen />} />
+          <Route path="employee" element={<EmployeePortal />} />
+          <Route path="customers" element={<Customers />} />
         </Route>
 
         {/* Parent Admin Routes */}

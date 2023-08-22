@@ -51,18 +51,19 @@ export const patronsManageMenus = [
 ];
 
 export const headerMenu = [
+  // {
+  //   name: "DASHBOARD"
+  // },
   {
-    name: "DASHBOARD"
+    name: "EMPLOYEE"
   },
   {
     name: "ADMINS"
   },
+
   {
-    name: "EMPLOYEE"
+    name: "CUSTOMERS"
   }
-  // {
-  //   name: "REPORTS"
-  // }
 ];
 
 export const settingsMenu = [

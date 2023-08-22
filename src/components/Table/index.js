@@ -43,32 +43,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
-  const [viewQuery, setViewQuery] = useState({
-    modal: false,
-    query: ""
-  });
-  // const {
-  //   data: patronData,
-  //   isSuccess,
-  //   isLoading
-  // } = useGetPatronsQuery({
-  //   page: page + 1,
-  //   rowsPerPage
-  // });
-
-  const patronData = [];
-  const isSuccess = true;
-
-  // useEffect(() => {
-  //   if (patronData && isSuccess) {
-  //     dispatch(getPatronSliceAction.setPatronsList(patronData));
-  //   }
-  // }, [patronData, isSuccess, dispatch]);
-
-  // useEffect(() => {
-  //   setMyArray(data);
-  //   data && toast.success(data?.message);
-  // }, [data]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -137,20 +111,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
     // colData.sort((a, b) => a.name > b.name);
     setMyArray(colData);
   };
-  const handleViewQuery = (type, query) => {
-    if (type === "Close") {
-      setViewQuery((prev) => ({
-        ...prev,
-        modal: false
-      }));
-    } else {
-      setViewQuery((prev) => ({
-        ...prev,
-        modal: true,
-        query
-      }));
-    }
-  };
   return (
     <>
       <LoadingBackdrop open={false} />
@@ -178,16 +138,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                               gap: "20px"
                             }}>
                             {item.label}
-                            {/* <Grid sx={{ display: "flex", flexDirection: "column" }}>
-                              <ExpandLessIcon
-                                sx={{ cursor: "pointer", fontSize: "15px" }}
-                                onClick={sortAscending}
-                              />
-                              <ExpandMoreIcon
-                                sx={{ cursor: "pointer", fontSize: "15px" }}
-                                onClick={sortDescending}
-                              />
-                            </Grid> */}
                           </Grid>
                         </TableCell>
                       );
@@ -206,13 +156,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                         cursor: "pointer"
                       }}
                       onClick={() => handleChecked(index, item, "onClick")}>
-                      {/* <StyledTableCell sx={{ display: "flex", alignItems: "center" }}>
-                        <Checkbox
-                          color="primary"
-                          checked={selectedValue.includes(item)}
-                          onChange={() => handleChecked(index, item)}
-                        />
-                      </StyledTableCell> */}
                       <StyledTableCell>
                         <Typography>{pan_number}</Typography>
                       </StyledTableCell>
@@ -230,21 +173,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
                       </StyledTableCell>
                       <StyledTableCell>
                         <Typography>{profession}</Typography>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        {/* <Typography>{query}</Typography> */}
-                        <Tooltip title="View Query">
-                          <OpenInNewOutlinedIcon
-                            htmlColor="grey"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleViewQuery("Open", query);
-                            }}
-                          />
-                        </Tooltip>
-                      </StyledTableCell>
-                      <StyledTableCell>
-                        <Typography sx={{ color: "#ffc107" }}>{handleStatus(status)}</Typography>
                       </StyledTableCell>
                       <StyledFlexTableCell>
                         <Tooltip title="Delete">
@@ -287,13 +215,6 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal }) => {
       ) : (
         ""
       )}
-      <StyledDialog open={viewQuery?.modal} onClose={() => handleViewQuery("Close")}>
-        <InfoDataModal
-          message={viewQuery?.query}
-          title={"VIEW QUERY"}
-          handleModal={handleViewQuery}
-        />
-      </StyledDialog>
     </>
   );
 };
