@@ -10,7 +10,7 @@ const PageNotFound = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     if (token) {
-      version ? navigate(`/${version}/pages/dashboard`) : navigate("/pages/dashboard");
+      version ? navigate(`/${version}/pages/employee`) : navigate("/pages/employee");
     } else {
       navigate("/login");
     }

@@ -135,16 +135,20 @@ function ResponsiveAppBar() {
             </Box>
           </Toolbar>
         </Container>
-        <Box
-          sx={{
-            height: "64px",
-            backgroundColor: "#3cbfae",
-            width: "100%"
-          }}>
-          <StyledTypography variant="h5" color="#fff" pt="15px" ml="20px">
-            You're managing <b>All Roles</b>
-          </StyledTypography>
-        </Box>
+        {!urlPath?.includes("employee") ? (
+          <Box
+            sx={{
+              height: "64px",
+              backgroundColor: "#3cbfae",
+              width: "100%"
+            }}>
+            <StyledTypography variant="h5" color="#fff" pt="15px" ml="20px">
+              You're managing <b>All Roles</b>
+            </StyledTypography>
+          </Box>
+        ) : (
+          ""
+        )}
       </AppBar>
     </>
   );

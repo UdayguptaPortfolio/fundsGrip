@@ -24,14 +24,6 @@ export const TableheadData = [
     name: "profession"
   },
   {
-    label: "Query",
-    name: "query"
-  },
-  {
-    label: "Status",
-    name: "status"
-  },
-  {
     label: "Actions"
   }
 ];
