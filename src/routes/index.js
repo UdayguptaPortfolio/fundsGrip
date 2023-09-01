@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "../container/Dashboard";
 import Login from "../container/Login";
 import Signup from "../container/SignUpPage";
 import NotFound from "../container/PageNotFound";
@@ -22,7 +21,6 @@ const App = () => {
 
         {/* Master Admin Routes */}
         <Route path="/pages" element={<RequireAuth />}>
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="admins" element={<AdminScreen />} />
           <Route path="employee" element={<EmployeePortal />} />
           <Route path="customers" element={<Customers />} />
@@ -30,7 +28,6 @@ const App = () => {
 
         {/* Parent Admin Routes */}
         <Route path="/:version/pages" element={<RequireAuth />}>
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="admins" element={<AdminScreen />} />
         </Route>
 
