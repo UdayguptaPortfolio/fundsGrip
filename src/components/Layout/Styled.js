@@ -3,7 +3,6 @@ import { Button, Link, List, ListItem } from "@mui/material";
 
 export const FotterMain = styled.footer`
   width: 100%;
-  position: absolute;
   bottom: 0;
   background-color: #4a4f55;
   padding: 20px 40px 20px 40px;

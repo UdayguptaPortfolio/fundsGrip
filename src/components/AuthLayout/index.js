@@ -8,15 +8,23 @@ import { Box } from "@mui/material";
 import { MainContentWrap } from "../Common/MainContentWrap";
 import Footer from "../../components/Layout/Footer";
 
-const Layout = ({ children }) => (
-  <>
-    <Header />
-    <Box sx={{ marginTop: "140px", display: "flex" }}>
-      <SideBar />
-      <MainContentWrap>{children}</MainContentWrap>
-    </Box>
-    <Footer />
-  </>
-);
+const Layout = ({ children }) => {
+  const urlPath = window.location.pathname;
+
+  const style = {
+    display: "flex",
+    paddingTop: `${urlPath?.includes("employee") ? "0px" : "140px"}`
+  };
+  return (
+    <>
+      <Header />
+      <Box sx={style}>
+        <SideBar />
+        <MainContentWrap>{children}</MainContentWrap>
+      </Box>
+      <Footer />
+    </>
+  );
+};
 
 export default Layout;
