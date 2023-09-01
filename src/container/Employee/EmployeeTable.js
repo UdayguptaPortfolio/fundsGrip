@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
 import {
   Table,
   Typography,
@@ -11,7 +10,10 @@ import {
   Tooltip
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import { useSelector, useDispatch } from "react-redux";
+import LoadingBackdrop from "../../components/LoadingBackDrop/LoadingBackdrop";
+import moment from "moment/moment";
 import {
   StyledTableBody,
   StyledTableRow,
@@ -19,17 +21,14 @@ import {
   StyledTableHead,
   StyledTableContainer,
   StyledFlexTableCell
-} from "./Styled.js";
-import { TableheadData, tableBodyData } from "./Data";
-import { useSelector, useDispatch } from "react-redux";
-import LoadingBackdrop from "../../components/LoadingBackDrop/LoadingBackdrop";
-import moment from "moment/moment";
+} from "../../components/Table/Styled";
+import { EmployeeTableheadData, employeeTableBodyData } from "../../components/Table/Data";
 
-const DataTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction }) => {
+const EmployeeTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction }) => {
   const { data = [], total_page_count = 0 } = useSelector(
     (state) => state?.getPatronState?.patronsData
   );
-  const [MyArray, setMyArray] = useState(tableBodyData);
+  const [MyArray, setMyArray] = useState(employeeTableBodyData);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
@@ -111,8 +110,8 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction
             <Table aria-label="simple table">
               <StyledTableHead>
                 <TableRow sx={{ alignItems: "center" }}>
-                  {TableheadData &&
-                    TableheadData?.map((item) => {
+                  {EmployeeTableheadData &&
+                    EmployeeTableheadData?.map((item) => {
                       return (
                         <TableCell
                           key={item.id}
@@ -136,8 +135,7 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction
               </StyledTableHead>
               <StyledTableBody className="hover">
                 {MyArray?.map((item, index) => {
-                  const { name, email, pan_number, status, phone_number, city, profession, query } =
-                    item || {};
+                  const { name, email, pan_number, phone_number, city, uidai } = item || {};
                   return (
                     <StyledTableRow
                       key={item?.id}
@@ -162,21 +160,21 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction
                         <Typography>{city}</Typography>
                       </StyledTableCell>
                       <StyledTableCell>
-                        <Typography>{profession}</Typography>
+                        <Typography>{uidai}</Typography>
                       </StyledTableCell>
                       <StyledFlexTableCell>
-                        <Tooltip title="Delete">
-                          <DeleteOutlineIcon
-                            htmlColor="red"
-                            handleAction={(e) => handleAction(e, "Delete")}
+                        <Tooltip title="View">
+                          <BorderColorOutlinedIcon
+                            htmlColor="grey"
+                            handleAction={(e) => handleAction(e, "View")}
                           />
                         </Tooltip>
-                        <Tooltip title="Export">
+                        {/* <Tooltip title="Export">
                           <FileDownloadOutlinedIcon
                             htmlColor="blue"
                             handleAction={(e) => handleAction(e, "Export")}
                           />
-                        </Tooltip>
+                        </Tooltip> */}
                       </StyledFlexTableCell>
                     </StyledTableRow>
                   );
@@ -215,4 +213,4 @@ const DataTable = ({ selectedValue, setSelectedValue, setOpenModal, handleAction
   );
 };
 
-export default DataTable;
+export default EmployeeTable;

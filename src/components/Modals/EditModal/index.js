@@ -163,7 +163,7 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
               onChange={handleChange}
             />
           </DefaultFormGroup>
-          <DefaultFormGroup>
+          {/* <DefaultFormGroup>
             <StyledLabel htmlFor="name">Query</StyledLabel>
             <TextFieldStyledInput
               sx={{ backgroundColor: "#f0f0f0" }}
@@ -183,7 +183,7 @@ const EditModal = ({ handleCloseModal, selectedValue }) => {
             }}>
             <StyledLabel htmlFor="name">Created by</StyledLabel>
             <StyledTypography>{selectedPatronData[0]?.created_by}</StyledTypography>
-          </DefaultFormGroup>
+          </DefaultFormGroup> */}
         </DialogContentText>
       </StyledDialogContent>
 
