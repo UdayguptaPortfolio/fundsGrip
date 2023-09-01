@@ -24,3 +24,33 @@ export const exportsMenus = [
     name: "Selected"
   }
 ];
+
+export const employeeButtons = [
+  {
+    name: "Work Board",
+    key: "work-board"
+  },
+  {
+    name: "Employee Creation",
+    key: "emp-creation"
+  }
+];
+
+export const workStates = [
+  {
+    name: "TO DO",
+    key: "to-do"
+  },
+  {
+    name: "In Progress",
+    key: "in-progress"
+  },
+  {
+    name: "Ready for Testing",
+    key: "UAT"
+  },
+  {
+    name: "Done",
+    key: "done"
+  }
+];
