@@ -54,3 +54,23 @@ export const workStates = [
     key: "done"
   }
 ];
+export const addNewTask = [
+  {
+    label: "Title*",
+    name: "title",
+    type: "string",
+    required: true
+  },
+  {
+    label: "Description*",
+    name: "description",
+    type: "string",
+    required: true
+  },
+  {
+    label: "PAN CARD*",
+    name: "pan_number",
+    type: "string",
+    required: true
+  }
+];

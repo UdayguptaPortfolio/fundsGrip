@@ -54,9 +54,9 @@ export const ParentTableHeadData = [
 export const parentTableBody = [
   {
     id: "1",
-    email: "udayguptaspn@gmail.com",
-    name: "Uday Gupta",
-    phone_number: "6386706810",
+    email: "admin@gmail.com",
+    name: "Super Admin",
+    phone_number: "98765434567",
     type: "Super Admin"
   }
 ];
@@ -65,9 +65,9 @@ export const tableBodyData = [
   {
     id: "1",
     pan_number: "CEDPG7971P",
-    email: "udayguptaspn@gmail.com",
-    name: "Uday Gupta",
-    phone_number: "6386706810",
+    email: "admin@gmail.com",
+    name: "Super Admin",
+    phone_number: "98765434567",
     city: "Powayan",
     profession: "Software Developer",
     query: "Query",
@@ -122,9 +122,9 @@ export const employeeTableBodyData = [
   {
     id: "1",
     pan_number: "CEDPG7971P",
-    email: "udayguptaspn@gmail.com",
-    name: "Uday Gupta",
-    phone_number: "6386706810",
+    email: "admin@gmail.com",
+    name: "Super Admin",
+    phone_number: "9876545678",
     city: "Powayan",
     profession: "Software Developer",
     query: "Query",
@@ -135,7 +135,7 @@ export const employeeTableBodyData = [
     id: "2",
     pan_number: "ABCD7898G",
     email: "abcspn@gmail.com",
-    name: "Anurag Gupta",
+    name: "Member Example",
     phone_number: "7666666666",
     city: "SPN",
     profession: "Engineer",
