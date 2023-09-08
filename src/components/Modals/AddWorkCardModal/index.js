@@ -1,11 +1,32 @@
 import { Paragraph } from "../../Common/StyledButton";
 import { StyledTypography } from "../../Common/StyledTypography";
-import { StyledDialog } from "./styled";
+import { StyledButton } from "../../Common/StyledButton";
+import {
+  StyledDialog,
+  DefaultFormGroup,
+  StyledLabel,
+  StyledInput,
+  CancelBtn,
+  StyledTitle,
+  StyledTextareaAutosize
+} from "./styled";
 import VideoLabelOutlinedIcon from "@mui/icons-material/VideoLabelOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { Grid } from "@mui/material";
+import { Grid, TextareaAutosize, Typography } from "@mui/material";
+import { DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import { addNewTask } from "../../../container/constant";
+import React, { useState } from "react";
 const AddWorkCardModal = (props) => {
-  const { cardName, handleModal } = props || {};
+  const { cardName, handleCloseModal, handleChange, handleSubmit, validation } = props || {};
+  const [showComments, setShowComments] = useState(true);
+  const [text, setText] = React.useState("");
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+  const handleComments = () => {
+    setShowComments(false);
+  };
   return (
     <StyledDialog open={true} maxWidth="sm" fullWidth>
       <div
@@ -35,9 +56,6 @@ const AddWorkCardModal = (props) => {
             <StyledTypography fontWeight={600} color={"#343b41"} fontSize="20px">
               Task
             </StyledTypography>
-            <Paragraph fontSize="13px" textTransfrom="capitalize">
-              in list <u>{cardName}</u>
-            </Paragraph>
           </div>
         </div>
         <div>
@@ -47,18 +65,98 @@ const AddWorkCardModal = (props) => {
             style={{
               cursor: "pointer"
             }}
-            onClick={() => handleModal()}
+            onClick={() => handleCloseModal()}
           />
         </div>
       </div>
-      <Grid container spacing={2}>
-        <Grid item xs={6} md={8}>
-          xs=6 md=8
+      {cardName === "TO DO" && (
+        <Grid container spacing={2} sx={{ display: "flex", flexDirection: "column" }}>
+          <DialogContent sx={{ pl: "50px" }}>
+            <StyledTitle
+              id="responsive-dialog-title"
+              letterSpacing="8px"
+              fontSize="28px"
+              padding="20px 0px">
+              CREATE NEW TASK
+            </StyledTitle>
+            <DialogContentText>
+              {addNewTask?.map((item, index) => {
+                const { label, name, type, required } = item || {};
+                const error = validation[name] || "";
+                return (
+                  <Grid item xs={name === "pan_number" ? 4 : 12} key={index}>
+                    <DefaultFormGroup>
+                      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+                      {name === "title" || name === "pan_number" ? (
+                        <>
+                          <StyledInput
+                            name={name}
+                            id={name}
+                            variant="outlined"
+                            focused={false}
+                            onChange={handleChange}
+                            type={type}
+                            required={required}
+                          />
+                          {error && ( // Display the error message if it exists
+                            <Typography color={"red"} fontSize="12px" marginBottom="20px">
+                              {error}
+                            </Typography>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <StyledTextareaAutosize
+                            minRows={3}
+                            maxRows={5}
+                            name={name}
+                            onChange={handleChange}
+                          />
+                          {name === "description" &&
+                            error && ( // Display the error message for description
+                              <Typography color={"red"} fontSize="12px" marginBottom="20px">
+                                {error}
+                              </Typography>
+                            )}
+                        </>
+                      )}
+                    </DefaultFormGroup>
+                  </Grid>
+                );
+              })}
+              {/* <Grid>
+                <Grid>
+                  {showComments ? (
+                    <StyledButton mt="30px" mb={10} onClick={handleComments}>
+                      Add Comments
+                    </StyledButton>
+                  ) : (
+                    <StyledButton mt="30px" mb={10} onClick={handleComments}>
+                      Save Comments
+                    </StyledButton>
+                  )}
+                </Grid>
+                <Grid>
+                  {!showComments && (
+                    <StyledTextareaAutosize
+                      rows={3}
+                      onChange={handleTextChange}
+                    />
+                  )}
+                </Grid>
+              </Grid> */}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions sx={{ justifyContent: "space-around" }}>
+            <CancelBtn sx={{ fontWeight: "bold" }} onClick={handleCloseModal}>
+              CANCEL
+            </CancelBtn>
+            <CancelBtn sx={{ fontWeight: "bold" }} onClick={handleSubmit}>
+              CREATE
+            </CancelBtn>
+          </DialogActions>
         </Grid>
-        <Grid item xs={6} md={4}>
-          xs=6 md=4
-        </Grid>
-      </Grid>
+      )}
     </StyledDialog>
   );
 };

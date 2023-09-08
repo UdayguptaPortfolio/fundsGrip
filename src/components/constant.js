@@ -135,7 +135,7 @@ export const addNewEmployeeForm = [
   {
     label: "PAN CARD",
     name: "pan_number",
-    type: "number",
+    type: "string",
     required: false
   },
   {
@@ -174,7 +174,7 @@ export const addNewCustomerForm = [
   {
     label: "PAN CARD",
     name: "pan_number",
-    type: "number",
+    type: "string",
     required: false
   },
   {

@@ -11,4 +11,7 @@ export const StyledTypography = styled(Typography)`
   padding-top: ${(props) => (props.pt ? props.pt : null)};
   font-weight: ${(props) => (props.fontWeight ? props.fontWeight : null)};
   padding: ${(props) => (props.padding ? props.padding : null)};
+  white-space: ${(props) => (props.whiteSpace ? props.whiteSpace : null)};
+  overflow: ${(props) => (props.overflow ? props.overflow : null)};
+  text-overflow: ${(props) => (props.textOverflow ? props.textOverflow : null)};
 `;
