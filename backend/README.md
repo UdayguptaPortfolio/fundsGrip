@@ -7,7 +7,6 @@ This project will run on **NodeJs** using **MongoDB** as database. Project is op
 - Node.js
 - MongoDB
 
-
 ### Install npm dependencies after installing (Git or manual download)
 
 ```bash
@@ -23,7 +22,6 @@ npm install
     ```
 3.  The file `.env` is already ignored, so you never commit your credentials.
 4.  Change the values of the file to your environment. Helpful comments added to `.env.example` file to understand the constants.
-
 
 ## How to run
 
