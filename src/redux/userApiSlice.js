@@ -48,7 +48,8 @@ export const userApiSlice = createApi({
     "GetAllPatrons",
     "GetUserData",
     "GetAllParentVersion",
-    "GetAllCountries"
+    "GetAllCountries",
+    "GetAllTask"
   ],
   endpoints: () => ({})
 });

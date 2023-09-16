@@ -68,9 +68,22 @@ export const addNewTask = [
     required: true
   },
   {
-    label: "PAN CARD*",
-    name: "pan_number",
-    type: "string",
+    label: "Phone Number*",
+    name: "phoneNumber",
+    type: "number",
+    required: true
+  },
+  {
+    label: "Status*",
+    name: "status",
+    type: "dropdown",
     required: true
   }
 ];
+
+export const statusCode = {
+  ToDo: 0,
+  "In Progress": 1,
+  "Ready For Testing": 2,
+  Done: 3
+};

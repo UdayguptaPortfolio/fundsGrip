@@ -92,3 +92,9 @@ export const StyledTitle = styled(DialogTitle)`
   word-spacing: ${(props) => (props.wordSpacing ? props.wordSpacing : null)};
   padding: ${(props) => (props.padding ? props.padding : null)};
 `;
+
+export const TaskCreationFieldWrap = styled.div`
+  overflow-y: scroll;
+  height: 50vh;
+  padding-right: 20px;
+`;

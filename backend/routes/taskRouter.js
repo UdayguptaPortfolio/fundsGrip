@@ -1,5 +1,5 @@
 var express = require("express");
-const { isAuthenticated } = require("../middlewares/jwt");
+// const { isAuthenticated } = require("../middlewares/jwt");
 const {
   createTask,
   getAllTask,
@@ -10,10 +10,10 @@ const {
 
 var router = express.Router();
 
-router.get("/", isAuthenticated, getAllTask);
-router.get("/:id", isAuthenticated, getSingleTask);
-router.post("/create", isAuthenticated, createTask);
-router.put("/update/:id", isAuthenticated, updateTask);
-router.delete("/delete/:id", isAuthenticated, deleteTask);
+router.get("/", getAllTask);
+router.get("/:id", getSingleTask);
+router.post("/create", createTask);
+router.patch("/update/:id", updateTask);
+router.delete("/delete/:id", deleteTask);
 
 module.exports = router;

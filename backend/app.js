@@ -9,7 +9,9 @@ var apiResponse = require("./helpers/apiResponse");
 var cors = require("cors");
 
 // DB connection
-var MONGODB_URL = process.env.MONGODB_URL;
+var MONGODB_URL =
+  process.env.MONGODB_URL ||
+  "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.6";
 var mongoose = require("mongoose");
 mongoose
   .connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })

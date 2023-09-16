@@ -21,6 +21,8 @@ export const WorkBoardMainWrap = styled.div`
   .work-btn-wrap {
     width: 100%;
     background: #060763;
+    height: fit-content;
+    min-height: 14vh;
     max-width: 18%;
     border-radius: 12px;
     bo-shadow: var(--ds-shadow-raised, 0 1px 1px #091e4240, 0 0 1px #091e424f);
@@ -59,6 +61,10 @@ export const StyledToDoGrid = styled(Grid)`
     margin: 8px;
     background-color: white;
     border-radius: 4px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
 }
 `;
 

@@ -15,7 +15,7 @@ const TaskSchema = new mongoose.Schema(
       required: true
     },
     status: {
-      type: Boolean,
+      type: Number,
       default: 0
     },
     eta: {

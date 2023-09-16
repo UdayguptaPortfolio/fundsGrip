@@ -14,4 +14,6 @@ export const StyledTypography = styled(Typography)`
   white-space: ${(props) => (props.whiteSpace ? props.whiteSpace : null)};
   overflow: ${(props) => (props.overflow ? props.overflow : null)};
   text-overflow: ${(props) => (props.textOverflow ? props.textOverflow : null)};
+  cursor: ${(props) => (props.cursor ? props.cursor : null)};
+  text-align: ${(props) => (props.textAlign ? props.textAlign : null)};
 `;

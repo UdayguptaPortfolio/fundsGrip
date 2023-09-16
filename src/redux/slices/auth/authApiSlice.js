@@ -2,9 +2,9 @@ import { apiSlice } from "../../apiSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    masterLogin: builder.mutation({
+    portalLogin: builder.mutation({
       query: (credentials) => ({
-        url: "",
+        url: "api/auth/login",
         method: "POST",
         body: { ...credentials }
       })
@@ -19,4 +19,4 @@ export const authApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useMasterLoginMutation, useOnVerifyQuery } = authApiSlice;
+export const { usePortalLoginMutation, useOnVerifyQuery } = authApiSlice;

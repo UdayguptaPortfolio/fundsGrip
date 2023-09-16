@@ -26,7 +26,7 @@ const createTask = catchAsyncError(async (req, res, next) => {
 const getAllTask = catchAsyncError(async (req, res, next) => {
   try {
     const task = await Task.find();
-    return apiResponse.successResponseWithData(res, "success", task);
+    return apiResponse.successResponseWithData(res, "success", task || []);
   } catch (err) {
     return apiResponse.ErrorResponse(res, err);
   }
@@ -55,13 +55,13 @@ const updateTask = async (req, res, next) => {
       return apiResponse.notFoundResponse(res, constants.task_notFound);
     }
 
-    const tasks = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       useFindAndModify: false,
       validators: true
     });
 
-    return apiResponse.successResponseWithData(res, constants.task_updated, task);
+    return apiResponse.successResponseWithData(res, constants.task_updated, updatedTask);
   } catch (err) {
     return apiResponse.ErrorResponse(res, err);
   }

@@ -19,12 +19,10 @@ const CustomerSchema = new mongoose.Schema({
     required: [true, "Please Enter Phone Number"]
   },
   city: {
-    type: String,
-    required: [true, "Please Enter City"]
+    type: String
   },
   profession: {
-    type: String,
-    required: [true, "Please Enter Professions"]
+    type: String
   }
 });
 

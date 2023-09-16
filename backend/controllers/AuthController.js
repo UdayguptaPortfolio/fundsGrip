@@ -60,6 +60,7 @@ exports.register = [
     try {
       // Extract the validation errors from a request.
       const errors = validationResult(req);
+
       if (!errors.isEmpty()) {
         // Display sanitized values/errors messages.
         return apiResponse.validationErrorWithData(res, "Validation Error.", errors.array());
@@ -78,27 +79,37 @@ exports.register = [
             phoneNumber: req.body.phoneNumber
           });
           // Html email body
-          let html = "<p>Please Confirm your Account.</p><p>OTP: " + otp + "</p>";
+          // let html = "<p>Please Confirm your Account.</p><p>OTP: " + otp + "</p>";
           // Send confirmation email
-          mailer
-            .send(constants.confirmEmails.from, req.body.email, "Confirm Account", html)
-            .then(() => {
-              // Save user and return a promise
-              return user.save();
-            })
-            .then((savedUser) => {
-              let userData = {
-                _id: savedUser._id,
-                firstName: savedUser.firstName,
-                lastName: savedUser.lastName,
-                email: savedUser.email
-              };
-              return apiResponse.successResponseWithData(res, "Registration Success.", userData);
+          console.log("inside bcrypt", user);
+          user
+            .save()
+            .then((userRes) => {
+              res.send(userRes);
             })
             .catch((err) => {
               console.log(err);
               return apiResponse.ErrorResponse(res, err);
             });
+          // mailer
+          //   .send(constants.confirmEmails.from, req.body.email, "Confirm Account", html)
+          //   .then(() => {
+          //     // Save user and return a promise
+          //     return user.save();
+          //   })
+          //   .then((savedUser) => {
+          //     let userData = {
+          //       _id: savedUser._id,
+          //       firstName: savedUser.firstName,
+          //       lastName: savedUser.lastName,
+          //       email: savedUser.email
+          //     };
+          //     return apiResponse.successResponseWithData(res, "Registration Success.", userData);
+          //   })
+          //   .catch((err) => {
+          //     console.log(err);
+          //     return apiResponse.ErrorResponse(res, err);
+          //   });
         });
       }
     } catch (err) {
@@ -136,56 +147,57 @@ exports.login = [
           console.log("user>>>>>>>", user);
           if (user) {
             //Compare given password with db's hash.
-            bcrypt.compare(req.body.password, user.password, function (err, same) {
-              if (same) {
-                //Check account confirmation.
-                if (user.isConfirmed) {
-                  // Check User's account active or not.
-                  if (user.status) {
-                    let userData = {
-                      _id: user._id,
-                      firstName: user.firstName,
-                      lastName: user.lastName,
-                      email: user.email
-                    };
-                    // Prepare JWT token for authentication
-                    const jwtPayload = userData;
-                    const jwtData = {
-                      expiresIn: process.env.JWT_TIMEOUT_DURATION
-                    };
-                    const secret = process.env.JWT_SECRET;
-                    //Generated JWT token with Payload and secret.
-                    userData.token = jwt.sign(jwtPayload, secret, jwtData);
+            // bcrypt.compare(req.body.password, user.password, function (err, same) {
+            //   if (same) {
+            //     //Check account confirmation.
+            //     if (user.isConfirmed) {
+            //       // Check User's account active or not.
+            //       if (user.status) {
+            //         let userData = {
+            //           _id: user._id,
+            //           firstName: user.firstName,
+            //           lastName: user.lastName,
+            //           email: user.email
+            //         };
+            //         // Prepare JWT token for authentication
+            //         const jwtPayload = userData;
+            //         const jwtData = {
+            //           expiresIn: process.env.JWT_TIMEOUT_DURATION
+            //         };
+            //         const secret = process.env.JWT_SECRET;
+            //         //Generated JWT token with Payload and secret.
+            //         userData.token = jwt.sign(jwtPayload, secret, jwtData);
 
-                    //cookie
-                    const options = {
-                      expires: new Date(
-                        Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-                      ),
-                      httpOnly: true
-                    };
-                    return apiResponse.loginResponseWithCookie(
-                      res,
-                      "Login Success.",
-                      userData,
-                      options
-                    );
-                  } else {
-                    return apiResponse.unauthorizedResponse(
-                      res,
-                      "Account is not active. Please contact admin."
-                    );
-                  }
-                } else {
-                  return apiResponse.unauthorizedResponse(
-                    res,
-                    "Account is not confirmed. Please confirm your account."
-                  );
-                }
-              } else {
-                return apiResponse.unauthorizedResponse(res, "Email or Password wrong.");
-              }
-            });
+            //         //cookie
+            //         const options = {
+            //           expires: new Date(
+            //             Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+            //           ),
+            //           httpOnly: true
+            //         };
+            //         return apiResponse.loginResponseWithCookie(
+            //           res,
+            //           "Login Success.",
+            //           userData,
+            //           options
+            //         );
+            //       } else {
+            //         return apiResponse.unauthorizedResponse(
+            //           res,
+            //           "Account is not active. Please contact admin."
+            //         );
+            //       }
+            //     } else {
+            //       return apiResponse.unauthorizedResponse(
+            //         res,
+            //         "Account is not confirmed. Please confirm your account."
+            //       );
+            //     }
+            //   } else {
+            //     return apiResponse.unauthorizedResponse(res, "Email or Password wrong.");
+            //   }
+            // });
+            return true;
           } else {
             return apiResponse.unauthorizedResponse(res, "Email or Password wrong.");
           }

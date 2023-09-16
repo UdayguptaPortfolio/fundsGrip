@@ -16,7 +16,7 @@ import {
 import { Grid, Box, Typography } from "@mui/material";
 import { StyledTypography } from "../../components/Common/StyledTypography";
 import { StyledButton } from "../../components/Common/StyledButton";
-import { useMasterLoginMutation } from "../../redux/slices/auth/authApiSlice";
+import { usePortalLoginMutation } from "../../redux/slices/auth/authApiSlice";
 import { useForgotPasswordMutation } from "../../redux/slices/manageAccount/forgotPasswordApiSlice";
 import { toast } from "react-toastify";
 import LoadingBackdrop from "../../components/LoadingBackDrop/LoadingBackdrop";
@@ -43,7 +43,7 @@ const Login = () => {
     otpExpired: false
   });
   const navigate = useNavigate();
-  const [masterLogin, { data, isLoading: loginLoading }] = useMasterLoginMutation();
+  const [portalLogin, { data, isLoading: loginLoading }] = usePortalLoginMutation();
   const [forgotPassword, { data: forgotData, isLoading }] = useForgotPasswordMutation();
 
   // Amplify.configure({
@@ -105,6 +105,8 @@ const Login = () => {
     }
   };
 
+  console.log("data", data);
+
   const handleSubmit = async (type) => {
     if (
       !emailValidator(loginData?.email)?.length &&
@@ -116,31 +118,21 @@ const Login = () => {
         passwordError: false
       }));
       if (type === "onLogin") {
+        let payload = {
+          email: loginData?.email,
+          password: loginData?.password
+        };
         setValidation((prevState) => ({
           ...prevState,
           loading: true
         }));
-        // Auth.signIn(loginData?.email, loginData?.password)
-        //   .then((user) => {
-        //     setAuthentication(user);
-        //     toast.success("MFA Code is successfully Sended to your email!");
-        //     localStorage.clear();
-        //     setValidation((prevState) => ({
-        //       ...prevState,
-        //       otpScreen: true,
-        //       otpExpired: false,
-        //       loading: false
-        //     }));
-        //   })
-        //   .catch((err) => {
-        //     toast.error(err?.message);
-        //     setValidation((prevState) => ({
-        //       ...prevState,
-        //       loading: false
-        //     }));
-        //   });
+        portalLogin(payload);
         navigate("/pages/employee");
         localStorage.setItem("token", "rwertewrwrwr");
+        setValidation((prevState) => ({
+          ...prevState,
+          loading: false
+        }));
       } else if (type === "onForgot") {
         let payload = {
           email: loginData?.email
@@ -208,7 +200,7 @@ const Login = () => {
         browser_detail: navigator.userAgent
       };
     }
-    masterLogin(payload);
+    portalLogin(payload);
   };
   return (
     <>
